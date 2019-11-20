@@ -58,8 +58,186 @@ context('Assertions', () => {
       cy.get('#password').type('my_password')
       cy.get('#log-in').click()
       cy.get('.top-bar').should('be.visible')
-      
+
     })
+
+  })
+
+  class transaction {
+    constructor(statusCell, dateCell, descriptionCell, categoryCell, amountCell) {
+      this.statusCell = statusCell;
+      this.dateCell = dateCell;
+      this.descriptionCell = descriptionCell;
+      this.categoryCell = categoryCell;
+      this.amountCell = amountCell;
+      return this;
+    }
+  }
+
+  describe('Table Sort Test', () => {
+    it('If you don’t enter the username and password and click the login button, it should throw an error', () => {
+
+      cy.get('#username').type('my_username')
+      cy.get('#password').type('my_password')
+      cy.get('#log-in').click()
+
+      // var firstTransaction1 = [
+      //   cy.get('#transactionsTable tr')
+      //   .find('tbody>tr').first().find('td').first().find('span').last()
+      // ]
+
+      var firstStatusCell = cy.get('#transactionsTable tbody')
+      .find('tr').first().as('firstTransaction').find('td').first()
+
+      var firstStatusCellText = firstStatusCell.find('span').last()
+
+      if(firstStatusCellText === "Complete"){
+        return true
+      }
+      else{
+        expect(true).to.equal(false)
+      }
+
+      firstStatusCell.find('span').last().should('have.text', 'Complete')
+
+       // cy.get('#amount').click()
+      // cy.get('#amount').click()
+
+      var secondStatusCell = cy.get('#transactionsTable tbody')
+      .find('tr').first().as('firstTransaction').find('td').first()
+
+      secondStatusCell.find('span').last().should('have.text', 'Complete')
+
+      expect(firstStatusCell).to.equal(secondStatusCell)
+
+
+
+     
+
+      // //first statusIcon
+      // var firstStatusIcon = cy.get('#transactionsTable tbody')
+      // .find('tr').first().as('firstTransaction').find('td').first().as('statusCell').find('.status-pill.smaller.green')//.should('be.visible')
+
+      // //first statusText
+      // var firstStatusText = cy.get('@statusCell').find('span').last()//.should('have.text', 'Complete')
+
+      
+
+      // //first date
+      // var firstDate = cy.get('@statusCell').next().as('dateCell').find('span').first()//.should('have.text', 'Today')
+
+      // //first time
+      // var firstTime = cy.get('@dateCell').find('span').last()//.should('have.text', '1:52am')
+
+      // //first descriptionImage
+      // var firstDescriptionImage = cy.get('@dateCell').next().as('descriptionCell').find('img[src="img/company1.png"]')//.should('be.visible')
+
+      // //first descriptionText
+      // var firstDescriptionText = cy.get('@descriptionCell').find('span')//.should('have.text', 'Starbucks coffee')
+
+      // //first categoryTextAndStatus
+      // var firstCategoryTextAndStatus = cy.get('@descriptionCell').next().as('categoryCell').find('.badge-success')//.should('have.text', 'Restaurant / Cafe')
+
+      // //first Amount
+      // var firstAmount = cy.get('@categoryCell').next().as('amountCell').find('.text-success')//.should('have.text', '+ 1,250.00 USD')
+
+      // var transaction1PreSort = new transaction(cy.get('@statusCell'), cy.get('@dateCell'), cy.get('@descriptionCell'), cy.get('@categoryCell'), cy.get('@amountCell'))
+
+      // cy.get('#amount').click()
+      // cy.get('#amount').click()
+
+      // var secondStatusIcon = cy.get('#transactionsTable tbody')
+      // .find('tr').first().as('firstTransaction').find('td').first().as('statusCell').find('.status-pill.smaller.green')//.should('be.visible')
+
+      // //first statusText
+      // var secondStatusText = cy.get('@statusCell').find('span').last()//.should('have.text', 'Complete')
+
+      // var secondStatusCell = cy.get('@statusCell')
+
+      // //first date
+      // var secondDate = cy.get('@statusCell').next().as('dateCell').find('span').first()//.should('have.text', 'Today')
+
+      // //first time
+      // var secondTime = cy.get('@dateCell').find('span').last()//.should('have.text', '1:52am')
+
+      // //first descriptionImage
+      // var secondDescriptionImage = cy.get('@dateCell').next().as('descriptionCell').find('img[src="img/company1.png"]')//.should('be.visible')
+
+      // //first descriptionText
+      // var secondDescriptionText = cy.get('@descriptionCell').find('span')//.should('have.text', 'Starbucks coffee')
+
+      // //first categoryTextAndStatus
+      // var secondCategoryTextAndStatus = cy.get('@descriptionCell').next().as('categoryCell').find('.badge-success')//.should('have.text', 'Restaurant / Cafe')
+
+      // //first Amount
+      // var secondAmount = cy.get('@categoryCell').next().as('amountCell').find('.text-success')//.should('have.text', '+ 1,250.00 USD')
+
+      // var transaction2PreSort = new transaction(cy.get('@statusCell'), cy.get('@dateCell'), cy.get('@descriptionCell'), cy.get('@categoryCell'), cy.get('@amountCell'))
+
+      // //expect(transaction1PreSort).to.equal(transaction2PreSort)
+
+
+      // function checkTransactionsAreTheSame(firstTransaction, secondTransaction) {
+        
+      // }
+
+      // function checkStatusIsTheSame(firstCell, secondCell){
+      //   firstCell.find('span').last().should('have.text', 'Completed')
+      //   // const firstPill = firstCell.find('.status-pill')
+      //   // const secondPill = secondCell.find('.status-pill')
+      //   // if(firstText === secondText
+      //   //   && firstPill === secondPill) {
+      //   //     return true
+      //   //   }
+      //   // return false
+      // }
+
+      // expect(checkStatusIsTheSame(firstStatusCell, secondStatusCell)).to.equal(true)
+
+      // get assessment of what each cell status is
+      // save it in a clean, text or int or enum like object
+      // go through for all of the transactions
+      // sort
+      // look at 1st date, find matching values
+      // check other values.
+      // if ANY fail, check if any other rows share date
+      // if so, check all their values. If not, then fail the test
+      // repeat for all
+
+
+
+      // MARK: COPIED CODE
+
+
+
+
+
+
+
+      // var firstTransaction2 = [
+      //   cy.get('#transactionsTable tr')
+      //   .find('tbody>tr').first().find('td').first().find('span').last()
+      // ]
+
+      //expect(firstTransaction1[0]).to.equal(firstTransaction2[0])
+
+
+      
+      //transaction1.statusCell = whatever
+
+
+      // var transaction1 = [
+      //   cy.get('@transactionRow').get('td').first(),
+      //   cy.get('@transactionRow').get('td').next(),
+      //   cy.get('@transactionRow').get('td').next(),
+      //   cy.get('@transactionRow').get('td').next(),
+      //   cy.get('@transactionRow').get('td').next()
+      // ]
+        
+      // cy.get('@transactionRow').next().as('transactionRow')
+
+    })
+
 
   })
 
