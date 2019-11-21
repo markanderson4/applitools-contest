@@ -2,7 +2,7 @@
 
 context('Assertions', () => {
   beforeEach(() => {
-    cy.visit('https://demo.applitools.com/hackathon.html')
+    cy.visit('https://demo.applitools.com/hackathon.html?showAd=true')
   })
 
   describe('Login Page UI Elements Test', () => {
@@ -92,10 +92,10 @@ context('Assertions', () => {
       var firstStatusCellText = firstStatusCell.find('span').last()
 
       if(firstStatusCellText === "Complete"){
-        return true
+                expect("it was true").to.equal("temp")
       }
       else{
-        expect(true).to.equal(false)
+        expect(firstStatusCellText).to.equal("Complete")
       }
 
       firstStatusCell.find('span').last().should('have.text', 'Complete')
@@ -239,6 +239,35 @@ context('Assertions', () => {
     })
 
 
+  })
+
+  describe('Canvas Chart Test', () => {
+    it('Once logged in, click on the "Compare Expenses" button on the toolbar. This will display a bar chart comparing the expenses for the year 2017 and 2018. Assume the values of the chart are coming from a test data and the test data will not change across versions. Validate that the bar chart and representing that data (number of bars and their heights). They should remain the same across versions. Then click on the "Show data for next year" button. This should add the data for the year 2019. Verify that this data set is added for the year 2019.', () => {
+      
+      cy.get('#username').type('my_username')
+      cy.get('#password').type('my_password')
+      cy.get('#log-in').click()
+      cy.get('#showExpensesChart').click()
+
+    })
+  })
+
+  describe('Dynamic Content Test', () => {
+    it('Once logged in, click on the "Compare Expenses" button on the toolbar. This will display a bar chart comparing the expenses for the year 2017 and 2018. Assume the values of the chart are coming from a test data and the test data will not change across versions. Validate that the bar chart and representing that data (number of bars and their heights). They should remain the same across versions. Then click on the "Show data for next year" button. This should add the data for the year 2019. Verify that this data set is added for the year 2019.', () => {
+      
+      cy.get('#username').type('my_username')
+      cy.get('#password').type('my_password')
+      cy.get('#log-in').click()
+
+
+      if(cy.get('.element-balances').find('#flashSale')){
+        cy.get('#flashSale > img').should('be.visible')
+      }
+      if(cy.get('.element-balances').find('#flashSale2')){
+        cy.get('#flashSale2 > img').should('be.visible')
+      }
+
+    })
   })
 
 })
