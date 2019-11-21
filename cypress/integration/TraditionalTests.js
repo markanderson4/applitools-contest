@@ -74,8 +74,8 @@ context('Assertions', () => {
       cy.get('#amount').click()
 
       checkEntireTableIsAccurate(expectedOrderAfterSort)  
-
-})
+    })
+  })
     
   describe('Dynamic Content Test', () => {
     it('Once logged in, click on the "Compare Expenses" button on the toolbar. This will display a bar chart comparing the expenses for the year 2017 and 2018. Assume the values of the chart are coming from a test data and the test data will not change across versions. Validate that the bar chart and representing that data (number of bars and their heights). They should remain the same across versions. Then click on the "Show data for next year" button. This should add the data for the year 2019. Verify that this data set is added for the year 2019.', () => {
@@ -91,6 +91,7 @@ context('Assertions', () => {
 
     })
   })
+})
 
       var statusPill = ['.smaller.green', '.smaller.red', '.smaller.yellow', '.smaller.yellow', '.smaller.green', '.smaller.yellow']
       var statusText = ['Complete', 'Declined', 'Pending', 'Pending', 'Complete', 'Pending']
@@ -172,4 +173,5 @@ context('Assertions', () => {
       function checkAmountCell(row){
         //amount type and text
         cy.get('@currentCell').next().as('currentCell').find(transactionData[8][row]).should('have.text', transactionData[9][row])
-      } 
+      }
+    
