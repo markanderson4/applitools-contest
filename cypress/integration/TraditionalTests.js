@@ -79,7 +79,7 @@ context('Assertions', () => {
   var transDate = ['Today', 'Jan 19th', 'Yesterday', 'Jan 23rd', 'Jan 7th', 'Jan 9th']
   var transTime = ['1:52am', '3:22pm', '7:45am', '2:7pm', '9:51am', '7:45pm']
   var descriptionImage = ['img[src="img/company1.png"]', 'img[src="img/company2.png"]', 'img[src="img/company3.png"]', 'img[src="img/company6.png"]', 'img[src="img/company4.png"]', 'img[src="img/company7.png"]']
-  var descriptionText = ['Starbucks coffee', 'Stripe Payment Processing', 'MailChimp Services', 'Shopify product', 'Ebay Marketplace', 'Templates Inc']
+  var descriptionText = ['Starbucks coffee', 'Stripe Payment Processing', 'MailChimp Services', 'Shopify product', 'Ebay Marketplace', ' Templates Inc']
   //var category = ['\n                          Restaurant / Cafe\n                        ', '\n                          Finance\n                        ', '\n                          Software\n                        ', '\n                          Shopping\n                        ', '\n                          Ecommerce\n                        ', '\n                          Business\n                        ']
   var categoryBadge = ['.badge-success', '.badge-danger', '.badge-warning', '.badge-primary', '.badge-danger', '.badge-primary']
   var categoryText = ['Restaurant / Cafe', 'Finance', 'Software', 'Shopping', 'Ecommerce', 'Business']
@@ -112,8 +112,8 @@ context('Assertions', () => {
       //   .find('tbody>tr').first().find('td').first().find('span').last()
       // ]
 
-      var i
-      for(i = 0; i < 6; i++){
+      
+      for(var i = 0; i < 6; i++){
         //status icon
         cy.get('#transactionsTable tbody')
           .find('tr').first().as('firstTransaction').find('td').first().as('statusCell').get('.status-pill').get(transactionData[0][0]).should('be.visible')
@@ -179,123 +179,40 @@ context('Assertions', () => {
       function checkAmountCell(row){
         //amount type and text
         cy.get('@currentCell').next().as('currentCell').find(transactionData[8][row]).should('have.text', transactionData[9][row])
-        //cy.get('@currentCell').next().as('currentCell').find('.text-success').should('have.text', '+ 1,250.00 USD')
-      }
-
-
-              //first descriptionImage
-      //var firstDescriptionImage = cy.get('@dateCell').next().as('descriptionCell').find('img[src="img/company1.png"]')//.should('be.visible')
-
-      //first descriptionText
-      //var firstDescriptionText = cy.get('@descriptionCell').find('span')//.should('have.text', 'Starbucks coffee')
-      
+      }    
 
       cy.get('#transactionsTable tbody').find('tr').first().as('currentTransaction')
       
-      for(var i = 0; i < 5; i++){
+      for(var i = 0; i < 6; i++){
         cy.get('@currentTransaction').find('td').first().as('currentCell')
         
-        checkStatusCell(i)
-        checkDateCell(i)
-        checkDescriptionCell(i)
-        checkCategoryCell(i)
-        checkAmountCell(i)
-
-        cy.get('@currentTransaction').next().as('currentTransaction')
-          
-      }
-      
-
-
-      //first statusIcon
-      var firstStatusIcon = cy.get('#transactionsTable tbody').find('tr').first().as('firstTransaction').find('td').first().as('statusCell').find('.status-pill.smaller.green')//.should('be.visible')
-
-      //first statusText
-      var firstStatusText = cy.get('@statusCell').find('span').last()//.should('have.text', 'Complete')
-
-      //first descriptionImage
-      //var firstDescriptionImage = cy.get('@dateCell').next().as('descriptionCell').find('img[src="img/company1.png"]')//.should('be.visible')
-
-      //first descriptionText
-      //var firstDescriptionText = cy.get('@descriptionCell').find('span')//.should('have.text', 'Starbucks coffee')
-
-      //first categoryTextAndStatus
-      //var firstCategoryTextAndStatus = cy.get('@descriptionCell').next().as('categoryCell').find('.badge-success')//.should('have.text', 'Restaurant / Cafe')
-
-      // //first Amount
-      // var firstAmount = cy.get('@categoryCell').next().as('amountCell').find('.text-success')//.should('have.text', '+ 1,250.00 USD')
-
-      // var transaction1PreSort = new transaction(cy.get('@statusCell'), cy.get('@dateCell'), cy.get('@descriptionCell'), cy.get('@categoryCell'), cy.get('@amountCell'))
-
-      // cy.get('#amount').click()
-      // cy.get('#amount').click()
-
-      // var secondStatusIcon = cy.get('#transactionsTable tbody')
-      // .find('tr').first().as('firstTransaction').find('td').first().as('statusCell').find('.status-pill.smaller.green')//.should('be.visible')
-
-      // //first statusText
-      // var secondStatusText = cy.get('@statusCell').find('span').last()//.should('have.text', 'Complete')
-
-      // var secondStatusCell = cy.get('@statusCell')
-
-      // //first date
-      // var secondDate = cy.get('@statusCell').next().as('dateCell').find('span').first()//.should('have.text', 'Today')
-
-      // //first time
-      // var secondTime = cy.get('@dateCell').find('span').last()//.should('have.text', '1:52am')
-
-      // //first descriptionImage
-      // var secondDescriptionImage = cy.get('@dateCell').next().as('descriptionCell').find('img[src="img/company1.png"]')//.should('be.visible')
-
-      // //first descriptionText
-      // var secondDescriptionText = cy.get('@descriptionCell').find('span')//.should('have.text', 'Starbucks coffee')
-
-      // //first categoryTextAndStatus
-      // var secondCategoryTextAndStatus = cy.get('@descriptionCell').next().as('categoryCell').find('.badge-success')//.should('have.text', 'Restaurant / Cafe')
-
-      // //first Amount
-      // var secondAmount = cy.get('@categoryCell').next().as('amountCell').find('.text-success')//.should('have.text', '+ 1,250.00 USD')
-
-      // var transaction2PreSort = new transaction(cy.get('@statusCell'), cy.get('@dateCell'), cy.get('@descriptionCell'), cy.get('@categoryCell'), cy.get('@amountCell'))
-
-      // //expect(transaction1PreSort).to.equal(transaction2PreSort)
-
-
-      // function checkTransactionsAreTheSame(firstTransaction, secondTransaction) {
+        checkTransactionIsAccurate(i)
         
-      // }
+        if(i < 5){
+          cy.get('@currentTransaction').next().as('currentTransaction')
+        }
+      }
 
-      // function checkStatusIsTheSame(firstCell, secondCell){
-      //   firstCell.find('span').last().should('have.text', 'Completed')
-      //   // const firstPill = firstCell.find('.status-pill')
-      //   // const secondPill = secondCell.find('.status-pill')
-      //   // if(firstText === secondText
-      //   //   && firstPill === secondPill) {
-      //   //     return true
-      //   //   }
-      //   // return false
-      // }
+      function checkTransactionIsAccurate(transaction){
+        checkStatusCell(transaction)
+        checkDateCell(transaction)
+        checkDescriptionCell(transaction)
+        checkCategoryCell(transaction)
+        checkAmountCell(transaction)
+      }
 
-      // expect(checkStatusIsTheSame(firstStatusCell, secondStatusCell)).to.equal(true)
+      cy.get('#amount').click()
 
-      // get assessment of what each cell status is
-      // save it in a clean, text or int or enum like object
-      // go through for all of the transactions
-      // sort
-      // look at 1st date, find matching values
-      // check other values.
-      // if ANY fail, check if any other rows share date
-      // if so, check all their values. If not, then fail the test
-      // repeat for all
+      var expectedOrderAfterSort = [2, 4, 3, 5, 1, 0]
 
-
-
-      // MARK: COPIED CODE
-
-
-
-
-
+      cy.get('#transactionsTable tbody').find('tr').first().as('currentTransaction')
+      for(var i = 0; i < 6; i++){
+        cy.get('@currentTransaction').find('td').first().as('currentCell')
+        checkTransactionIsAccurate(expectedOrderAfterSort[i])
+        if(i < 5){
+          cy.get('@currentTransaction').next().as('currentTransaction')
+        }
+      }
 
 
       // var firstTransaction2 = [
