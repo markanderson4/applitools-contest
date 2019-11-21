@@ -74,6 +74,32 @@ context('Assertions', () => {
     }
   }
 
+  var statusPill = ['.smaller.green', '.smaller.red', '.smaller.yellow', '.smaller.yellow', '.smaller.green', '.smaller.yellow']
+  var statusText = ['Complete', 'Declined', 'Pending', 'Pending', 'Complete', 'Pending']
+  var transDate = ['Today', 'Jan 19th', 'Yesterday', 'Jan 23rd', 'Jan 7th', 'Jan 9th']
+  var transTime = ['1:52am', '3:22pm', '7:45am', '2:7pm', '9:51am', '7:45pm']
+  var descriptionImage = ['img[src="img/company1.png"]', 'img[src="img/company2.png"]', 'img[src="img/company3.png"]', 'img[src="img/company6.png"]', 'img[src="img/company4.png"]', 'img[src="img/company7.png"]']
+  var descriptionText = ['Starbucks coffee', 'Stripe Payment Processing', 'MailChimp Services', 'Shopify product', 'Ebay Marketplace', 'Templates Inc']
+  //var category = ['\n                          Restaurant / Cafe\n                        ', '\n                          Finance\n                        ', '\n                          Software\n                        ', '\n                          Shopping\n                        ', '\n                          Ecommerce\n                        ', '\n                          Business\n                        ']
+  var categoryBadge = ['.badge-success', '.badge-danger', '.badge-warning', '.badge-primary', '.badge-danger', '.badge-primary']
+  var categoryText = ['Restaurant / Cafe', 'Finance', 'Software', 'Shopping', 'Ecommerce', 'Business']
+  var amountType = ['.text-success', '.text-success', '.text-danger', '.text-success', '.text-danger', '.text-success']
+  var amountText = ['+ 1,250.00 USD', '+ 952.23 USD', '- 320.00 USD', '+ 17.99 USD', '- 244.00 USD', '+ 340.00 USD']
+
+
+  var transactionData = [
+    statusPill,
+    statusText,
+    transDate,
+    transTime,
+    descriptionImage,
+    descriptionText,
+    categoryBadge,
+    categoryText,
+    amountType,
+    amountText
+  ]
+
   describe('Table Sort Test', () => {
     it('If you don’t enter the username and password and click the login button, it should throw an error', () => {
 
@@ -86,57 +112,115 @@ context('Assertions', () => {
       //   .find('tbody>tr').first().find('td').first().find('span').last()
       // ]
 
-      var firstStatusCell = cy.get('#transactionsTable tbody')
-      .find('tr').first().as('firstTransaction').find('td').first()
-
-      var firstStatusCellText = firstStatusCell.find('span').last()
-
-      if(firstStatusCellText === "Complete"){
-        return true
-      }
-      else{
-        expect(true).to.equal(false)
+      var i
+      for(i = 0; i < 6; i++){
+        //status icon
+        cy.get('#transactionsTable tbody')
+          .find('tr').first().as('firstTransaction').find('td').first().as('statusCell').get('.status-pill').get(transactionData[0][0]).should('be.visible')
       }
 
-      firstStatusCell.find('span').last().should('have.text', 'Complete')
+      var firstStatusIcon = cy.get('#transactionsTable tbody')
+      .find('tr').first().as('firstTransaction').find('td').first().as('statusCell').get('.status-pill').get(transactionData[0][0]).should('be.visible')
+
+      
+
+      // var firstStatusCell = cy.get('#transactionsTable tbody')
+      // .find('tr').first().as('firstTransaction').find('td').first()
+
+      // if(firstStatusCellText === "Complete"){
+      //   return true
+      //   expect(firstStatusCellText).to.equal("we in this bitch")
+
+      // }
+      // else{
+      //   expect(true).to.equal(false)
+      // }
+
+      // firstStatusCell.find('span').last().should('have.text', 'Complete')
 
        // cy.get('#amount').click()
       // cy.get('#amount').click()
 
-      var secondStatusCell = cy.get('#transactionsTable tbody')
-      .find('tr').first().as('firstTransaction').find('td').first()
-
-      secondStatusCell.find('span').last().should('have.text', 'Complete')
-
-      expect(firstStatusCell).to.equal(secondStatusCell)
-
-
-
-     
-
-      // //first statusIcon
-      // var firstStatusIcon = cy.get('#transactionsTable tbody')
-      // .find('tr').first().as('firstTransaction').find('td').first().as('statusCell').find('.status-pill.smaller.green')//.should('be.visible')
-
-      // //first statusText
-      // var firstStatusText = cy.get('@statusCell').find('span').last()//.should('have.text', 'Complete')
-
       
 
-      // //first date
-      // var firstDate = cy.get('@statusCell').next().as('dateCell').find('span').first()//.should('have.text', 'Today')
+      // secondStatusCell.find('span').last().should('have.text', 'Complete')
 
-      // //first time
-      // var firstTime = cy.get('@dateCell').find('span').last()//.should('have.text', '1:52am')
+      // expect(firstStatusCell).to.equal(secondStatusCell)
 
-      // //first descriptionImage
-      // var firstDescriptionImage = cy.get('@dateCell').next().as('descriptionCell').find('img[src="img/company1.png"]')//.should('be.visible')
+      function checkStatusCell(row) {
+        //status icon
+        cy.get('@currentCell').find(transactionData[0][row]).should('be.visible')
 
-      // //first descriptionText
-      // var firstDescriptionText = cy.get('@descriptionCell').find('span')//.should('have.text', 'Starbucks coffee')
+        //status text
+        cy.get('@currentCell').find('span').last().should('have.text', transactionData[1][row])
+      }
 
-      // //first categoryTextAndStatus
-      // var firstCategoryTextAndStatus = cy.get('@descriptionCell').next().as('categoryCell').find('.badge-success')//.should('have.text', 'Restaurant / Cafe')
+      function checkDateCell(row) {
+        //date
+        cy.get('@currentCell').next().as('currentCell').find('span').first().should('have.text', transactionData[2][row])
+
+        //time
+        cy.get('@currentCell').find('span').last().should('have.text', transactionData[3][row])
+      }
+
+      function checkDescriptionCell(row) {
+        //description image
+        cy.get('@currentCell').next().as('currentCell').find(transactionData[4][row]).should('be.visible')
+
+        //description text
+        cy.get('@currentCell').find('span').should('have.text', transactionData[5][row])
+      }
+
+      function checkCategoryCell(row) {
+        //category badge and text
+        cy.get('@currentCell').next().as('currentCell').find(transactionData[6][row]).should('have.text', transactionData[7][row])
+      }
+
+      function checkAmountCell(row){
+        //amount type and text
+        cy.get('@currentCell').next().as('currentCell').find(transactionData[8][row]).should('have.text', transactionData[9][row])
+        //cy.get('@currentCell').next().as('currentCell').find('.text-success').should('have.text', '+ 1,250.00 USD')
+      }
+
+
+              //first descriptionImage
+      //var firstDescriptionImage = cy.get('@dateCell').next().as('descriptionCell').find('img[src="img/company1.png"]')//.should('be.visible')
+
+      //first descriptionText
+      //var firstDescriptionText = cy.get('@descriptionCell').find('span')//.should('have.text', 'Starbucks coffee')
+      
+
+      cy.get('#transactionsTable tbody').find('tr').first().as('currentTransaction')
+      
+      for(var i = 0; i < 5; i++){
+        cy.get('@currentTransaction').find('td').first().as('currentCell')
+        
+        checkStatusCell(i)
+        checkDateCell(i)
+        checkDescriptionCell(i)
+        checkCategoryCell(i)
+        checkAmountCell(i)
+
+        cy.get('@currentTransaction').next().as('currentTransaction')
+          
+      }
+      
+
+
+      //first statusIcon
+      var firstStatusIcon = cy.get('#transactionsTable tbody').find('tr').first().as('firstTransaction').find('td').first().as('statusCell').find('.status-pill.smaller.green')//.should('be.visible')
+
+      //first statusText
+      var firstStatusText = cy.get('@statusCell').find('span').last()//.should('have.text', 'Complete')
+
+      //first descriptionImage
+      //var firstDescriptionImage = cy.get('@dateCell').next().as('descriptionCell').find('img[src="img/company1.png"]')//.should('be.visible')
+
+      //first descriptionText
+      //var firstDescriptionText = cy.get('@descriptionCell').find('span')//.should('have.text', 'Starbucks coffee')
+
+      //first categoryTextAndStatus
+      //var firstCategoryTextAndStatus = cy.get('@descriptionCell').next().as('categoryCell').find('.badge-success')//.should('have.text', 'Restaurant / Cafe')
 
       // //first Amount
       // var firstAmount = cy.get('@categoryCell').next().as('amountCell').find('.text-success')//.should('have.text', '+ 1,250.00 USD')
