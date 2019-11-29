@@ -81,6 +81,7 @@ context('Assertions', () => {
 
       // Because the chart is in a canvas, I have no way to extract data from the chart. I cannot assert anything for this test
       // using the traditional method, would need be tested manually or automated using a tool like Applitools
+      
     })
   })
     
