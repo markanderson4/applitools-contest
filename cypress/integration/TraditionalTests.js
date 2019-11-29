@@ -2,12 +2,12 @@
 
 context('Assertions', () => {
   beforeEach(() => {
-    cy.visit('https://demo.applitools.com/hackathon.html?showAd=true')
+    cy.visit('https://demo.applitools.com/hackathonV2.html?showAd=true')
   })
 
   describe('Login Page UI Elements Test', () => {
-    it('.should() - make an assertion about the current subject', () => {
-      // https://on.cypress.io/should
+    it('assert all elements on Login page', () => {
+      
       cy.get('.logo-w > a > img').should('be.visible')
       cy.get('.auth-header').should('be.visible').should('have.text', '\n        Login Form\n      ')
       cy.get(':nth-child(1) > label').should('be.visible').should('have.text', 'Username')
@@ -15,7 +15,6 @@ context('Assertions', () => {
       cy.get('#username').should('have.attr', 'placeholder', 'Enter your username')
       cy.get('form > :nth-child(2) > label').should('be.visible').should('have.text', 'Password')
       cy.get('.os-icon-fingerprint').should('be.visible')
-      // cy.get('div[class="pre-icon os-icon os-icon-fingerprint"]').should('be.visible')
       cy.get('#password').should('have.attr', 'placeholder', 'Enter your password')
       cy.get('#log-in').should('contain', 'Log In')
       cy.get('.form-check-input').should('be.visible')
@@ -23,7 +22,6 @@ context('Assertions', () => {
       cy.get('img[src="img/social-icons/twitter.png"]').should('be.visible')
       cy.get('img[src="img/social-icons/facebook.png"]').should('be.visible')
       cy.get('img[src="img/social-icons/linkedin.png"]').should('be.visible')
-
 
     })
   })
@@ -66,14 +64,23 @@ context('Assertions', () => {
       cy.login('my_username', 'my_password')
 
       var expectedOrderPreSort = [0,1,2,3,4,5]
-
-      checkEntireTableIsAccurate(expectedOrderPreSort)
-
       var expectedOrderAfterSort = [2, 4, 3, 5, 1, 0]
-
+      
+      checkEntireTableIsAccurate(expectedOrderPreSort)
       cy.get('#amount').click()
-
       checkEntireTableIsAccurate(expectedOrderAfterSort)  
+      
+    })
+  })
+
+  describe('Canvas Chart Test', () => {
+    it('Test the chart data is accurate', () => {
+
+      cy.login('my_username', 'my_password')
+      cy.get('#showExpensesChart').click()
+
+      // Because the chart is in a canvas, I have no way to extract data from the chart. I cannot assert anything for this test
+      // using the traditional method, would need be tested manually or automated using a tool like Applitools
     })
   })
     
@@ -92,6 +99,8 @@ context('Assertions', () => {
     })
   })
 })
+
+// Test data for tables test
 
       var statusPill = ['.smaller.green', '.smaller.red', '.smaller.yellow', '.smaller.yellow', '.smaller.green', '.smaller.yellow']
       var statusText = ['Complete', 'Declined', 'Pending', 'Pending', 'Complete', 'Pending']
@@ -117,6 +126,8 @@ context('Assertions', () => {
         amountType,
         amountText
       ]
+
+// Helper functions
 
       function checkEntireTableIsAccurate(expectedOrder){
         cy.get('#transactionsTable tbody').find('tr').first().as('currentTransaction')
