@@ -58,7 +58,7 @@ context('Assertions', () => {
 
 
   describe('Table Sort Test', () => {
-    it('If you don’t enter the username and password and click the login button, it should throw an error', () => {
+    it('Assert that after sorting the table by amount, that sort is accurate and data stays the same in each cell', () => {
 
       cy.login('my_username', 'my_password')
 
@@ -90,7 +90,7 @@ context('Assertions', () => {
   })
     
   describe('Dynamic Content Test', () => {
-    it('Once logged in, click on the "Compare Expenses" button on the toolbar. This will display a bar chart comparing the expenses for the year 2017 and 2018. Assume the values of the chart are coming from a test data and the test data will not change across versions. Validate that the bar chart and representing that data (number of bars and their heights). They should remain the same across versions. Then click on the "Show data for next year" button. This should add the data for the year 2019. Verify that this data set is added for the year 2019.', () => {
+    it('Test that existence of dynamic Flash Sale gifs', () => {
       
       cy.login('my_username', 'my_password')
 
