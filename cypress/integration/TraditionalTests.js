@@ -2,7 +2,7 @@
 
 context('Assertions', () => {
   beforeEach(() => {
-    cy.visit('https://demo.applitools.com/hackathon.html?showAd=true')
+    cy.visit('https://demo.applitools.com/hackathonV2.html?showAd=true')
   })
 
   describe('Login Page UI Elements Test', () => {
