@@ -1,6 +1,6 @@
 context('Assertions', () => {
     beforeEach(() => {
-      cy.visit('https://demo.applitools.com/hackathon.html?showAd=true')
+      cy.visit('https://demo.applitools.com/hackathonV2.html?showAd=true')
     })
   
     describe('Login Page UI Elements Test', () => {
@@ -115,12 +115,12 @@ context('Assertions', () => {
   
         cy.login('my_username', 'my_password')
         cy.get('#showExpensesChart').click()
-        cy.wait(5000)
+        cy.wait(5000) // wait because chart animates, and screenshot must be of chart once animations are complete
 
         cy.eyesCheckWindow('Expenses Page');
 
         cy.get('#addDataset').click()
-        cy.wait(5000)
+        cy.wait(5000) // wait because chart animates, and screenshot must be of chart once animations are complete
 
         cy.eyesCheckWindow('Expenses Page');
         
