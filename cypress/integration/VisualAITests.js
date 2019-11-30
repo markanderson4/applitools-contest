@@ -115,12 +115,12 @@ context('Assertions', () => {
   
         cy.login('my_username', 'my_password')
         cy.get('#showExpensesChart').click()
-        cy.wait(5000)
+        cy.wait(5000) // wait because chart animates, and screenshot must be of chart once animations are complete
 
         cy.eyesCheckWindow('Expenses Page');
 
         cy.get('#addDataset').click()
-        cy.wait(5000)
+        cy.wait(5000) // wait because chart animates, and screenshot must be of chart once animations are complete
 
         cy.eyesCheckWindow('Expenses Page');
         
