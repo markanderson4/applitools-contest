@@ -4,6 +4,10 @@
 
 * Clone the repo to your local machine : `git clone https://github.com/markanderson4/applitools-contest`
 
+* Move into root directory of the project : `cd applitools-contest`
+
+* Set Applitools API key to mine : `export APPLITOOLS_API_KEY=MszVA7945vnSVXEZ98OknP7RUwunI9cmYOrgCHteoWws110`
+
 * Install NPM in the root directory of the project: `npm install`
 
 * Launch the Cypress GUI: `npx cypress open`
